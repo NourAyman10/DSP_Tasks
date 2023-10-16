@@ -96,18 +96,21 @@ class SecondPoint:
         self.root.mainloop()
 
     def generate_wave(self):
+        amplitude = float(self.amplitude_value.get())
+        analog_frequency = float(self.analogFrequency_value.get())
+        sampling_frequency = float(self.samplingFrequency_value.get())
+        phase_shift = float(self.phaseShift_value.get())
+
         # sampling frequency obeys the sampling theorem
-        min_sampling_frequency = 2 * float(self.analogFrequency_value.get())
-        if float(self.samplingFrequency_value.get()) < min_sampling_frequency:
+        min_sampling_frequency = 2 * analog_frequency
+        if sampling_frequency < min_sampling_frequency:
             messagebox.showerror("Error!!", f"Sampling frequency should be at least {min_sampling_frequency} Hz.")
         else:
-            self.time = np.arange(0, 1, 1 / float(self.samplingFrequency_value.get()))
+            self.time = np.arange(0, 1, 1 / sampling_frequency)
             if self.type_value.get() == "sin":
-                self.Y = float(self.amplitude_value.get()) * np.sin(
-                    (2 * np.pi * float(self.analogFrequency_value.get()) * self.time) + float(self.phaseShift_value.get()))
+                self.Y = amplitude * np.sin((2 * np.pi * analog_frequency * self.time) + phase_shift)
             elif self.type_value.get() == "cos":
-                self.Y = float(self.amplitude_value.get()) * np.cos(
-                    (2 * np.pi * float(self.analogFrequency_value.get()) * self.time) + float(self.phaseShift_value.get()))
+                self.Y = amplitude * np.cos((2 * np.pi * analog_frequency * self.time) + phase_shift)
             else:
                 messagebox.showerror("Error!!", "Please, Enter valid type")
 
