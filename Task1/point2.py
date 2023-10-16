@@ -96,22 +96,27 @@ class SecondPoint:
         self.root.mainloop()
 
     def generate_wave(self):
-        self.time = np.arange(0, 1, 1 / float(self.samplingFrequency_value.get()))
-        if self.type_value.get() == "sin":
-            self.Y = float(self.amplitude_value.get()) * np.sin(
-                (2 * np.pi * float(self.analogFrequency_value.get()) * self.time) + float(self.phaseShift_value.get()))
-        elif self.type_value.get() == "cos":
-            self.Y = float(self.amplitude_value.get()) * np.cos(
-                (2 * np.pi * float(self.analogFrequency_value.get()) * self.time) + float(self.phaseShift_value.get()))
+        # sampling frequency obeys the sampling theorem
+        min_sampling_frequency = 2 * float(self.analogFrequency_value.get())
+        if float(self.samplingFrequency_value.get()) < min_sampling_frequency:
+            messagebox.showerror("Error!!", f"Sampling frequency should be at least {min_sampling_frequency} Hz.")
         else:
-            print("Enter valid type")
+            self.time = np.arange(0, 1, 1 / float(self.samplingFrequency_value.get()))
+            if self.type_value.get() == "sin":
+                self.Y = float(self.amplitude_value.get()) * np.sin(
+                    (2 * np.pi * float(self.analogFrequency_value.get()) * self.time) + float(self.phaseShift_value.get()))
+            elif self.type_value.get() == "cos":
+                self.Y = float(self.amplitude_value.get()) * np.cos(
+                    (2 * np.pi * float(self.analogFrequency_value.get()) * self.time) + float(self.phaseShift_value.get()))
+            else:
+                messagebox.showerror("Error!!", "Please, Enter valid type")
 
-        plt.figure(figsize=(10, 4))
-        plt.plot(self.time, self.Y)
-        plt.title(f"{(self.type_value.get()).capitalize()} Wave")
-        plt.xlabel("Time(s)")
-        plt.ylabel("Amplitude")
-        plt.show()
+            plt.figure(figsize=(20, 5))
+            plt.plot(self.time, self.Y)
+            plt.title(f"{(self.type_value.get()).capitalize()} Wave")
+            plt.xlabel("Time(s)")
+            plt.ylabel("Amplitude")
+            plt.show()
 
     def compare_values(self):
         if self.type_value.get() == "sin":
