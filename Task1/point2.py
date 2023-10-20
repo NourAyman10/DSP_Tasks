@@ -7,7 +7,6 @@ from comparesignals import SignalSamplesAreEqual
 from tkinter import messagebox
 
 
-
 class SecondPoint:
     def __init__(self):
         self.mainColor = '#270D30'
@@ -105,10 +104,14 @@ class SecondPoint:
             sampling_frequency = float(self.samplingFrequency_value.get())
             phase_shift = float(self.phaseShift_value.get())
 
+            if analog_frequency == 0:
+                self.Y = amplitude * np.cos(phase_shift)
+
             # sampling frequency obeys the sampling theorem
             min_sampling_frequency = 2 * analog_frequency
-            if sampling_frequency < min_sampling_frequency:
+            if sampling_frequency < min_sampling_frequency or sampling_frequency == 0:
                 messagebox.showerror("Error!!", f"Sampling frequency should be at least {min_sampling_frequency} Hz.")
+
             else:
                 self.time = np.arange(0, 1, 1 / sampling_frequency)
                 if self.type_value.get() == "sin":
@@ -136,9 +139,13 @@ class SecondPoint:
             return False
 
     def compare_values(self):
-        if self.type_value.get() == "sin":
-            SignalSamplesAreEqual("Files/SinOutput.txt", self.time, self.Y)
-        elif self.type_value.get() == "cos":
-            SignalSamplesAreEqual("Files/CosOutput.txt", self.time, self.Y)
-        else:
-            messagebox.showerror("Compare Values", "You Should Choose Signal Type")
+        # validate inputs
+        validate = bool(self.validate_inputs())
+
+        if validate:
+            if self.type_value.get() == "sin":
+                SignalSamplesAreEqual("Files/SinOutput.txt", self.time, self.Y)
+            elif self.type_value.get() == "cos":
+                SignalSamplesAreEqual("Files/CosOutput.txt", self.time, self.Y)
+            else:
+                messagebox.showerror("Compare Values", "You Should Choose Signal Type")
