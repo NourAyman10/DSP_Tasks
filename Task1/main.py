@@ -13,7 +13,7 @@ class Screen:
         self.root.geometry("1000x563")
 
         # setting background image
-        self.image = Image.open("Photos/background.png")
+        self.image = Image.open("../Photos/background.png")
         self.background_image = ImageTk.PhotoImage(self.image)
         self.background_label = Label(self.root, image=self.background_image)
 
@@ -21,15 +21,15 @@ class Screen:
         self.image_label = tk.Label(self.main_frame, image="", borderwidth=0, background=self.mainColor)
 
         # Creating widgets
-        self.choose_point = Image.open("Photos/choosePoint.png")
+        self.choose_point = Image.open("../Photos/Task1/choosePoint.png")
         self.choose_point_image = ImageTk.PhotoImage(self.choose_point)
         self.choose_point_label = Label(self.root, image=self.choose_point_image, background=self.mainColor)
 
-        self.task1_button_image = PhotoImage(file="Photos/point1Btn.png")
+        self.task1_button_image = PhotoImage(file="../Photos/Task1/point1Btn.png")
         self.task1Button = Button(self.root, image=self.task1_button_image, borderwidth=0, cursor="hand2", bd=0,
                                   background='#141345', activebackground='#141345', command=FirstPoint)
 
-        self.task2_button_image = PhotoImage(file="Photos/point2Btn.png")
+        self.task2_button_image = PhotoImage(file="../Photos/Task1/point2Btn.png")
         self.task2Button = Button(self.root, image=self.task2_button_image, borderwidth=0, cursor="hand2", bd=0,
                                   background='#141345', activebackground='#141345', command=self.openSecondPoint)
 
@@ -46,5 +46,6 @@ class Screen:
     def openSecondPoint(self):
         self.root.destroy()
         SecondPoint()
+
 
 Screen()

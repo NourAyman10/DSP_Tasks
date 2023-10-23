@@ -27,4 +27,3 @@ class FirstPoint:
         plt.ylabel("Value")
         plt.legend()
         plt.show()
-
