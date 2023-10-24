@@ -24,13 +24,24 @@ def plot_signal(signal, title):
     plt.grid()
     plt.show()
 
+def padding(signal1,signal2):
+    pad=max(len(signal1),len(signal2))
+    if len(signal1)<pad:
+        signal1=signal1+[0]*(pad-len(signal1))
+    if len(signal2)<pad:
+        signal2=signal2+[0]*(pad-len(signal2))
+    return signal1,signal2        
+
+
 def addition(signal1, signal2):
+    signal1,signal2=padding(signal1,signal2)
     result_addition = signal1 + signal2
     plot_signal(result_addition, "Addition Result")
     return result_addition
 
 def subtraction(signal1, signal2):
-    result_subtraction = signal1 - signal2
+    signal1,signal2=padding(signal1,signal2)
+    result_subtraction = abs(signal1 - signal2)
     plot_signal(result_subtraction, "Subtraction Result")
     return result_subtraction
 
