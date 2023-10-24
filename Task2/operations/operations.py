@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 
 def load_file(file_path):
     with open(file_path, "r") as file:
-        # Skip the first three lines of metadata
         for _ in range(3):
             next(file)
 
