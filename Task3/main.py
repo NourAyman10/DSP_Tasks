@@ -1,4 +1,3 @@
-from Task3.helper_functions import load_file
 import numpy as np
 import matplotlib.pyplot as plt
 from tkinter import *
@@ -7,9 +6,8 @@ from tkinter import filedialog
 from PIL import Image, ImageTk
 from tkinter import messagebox
 from Task3.files_comparison import Compare
+from Task3.helper_functions import load_file
 
-from Task3.Files.QuanTest2 import QuantizationTest2
-from Task3.Files.QuanTest1 import QuantizationTest1
 
 
 def get_levels(number, typ):

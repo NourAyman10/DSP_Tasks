@@ -1,8 +1,8 @@
-from helper_functions import load_file
+from Task3.helper_functions import load_file
 import numpy as np
 import matplotlib.pyplot as plt
-from Files.QuanTest2 import QuantizationTest2
-from Files.QuanTest1 import QuantizationTest1
+from Task3.Files.QuanTest2 import QuantizationTest2
+from Task3.Files.QuanTest1 import QuantizationTest1
 
 
 def get_levels(number, type):
@@ -121,15 +121,15 @@ def plot(signal, quantized_signal_values, quantization_error_values):
 
 class Compare:
     def __init__(self):
-        signal1, levels1 = quantization("../Task3/Files/Quan1_input.txt", 8,
+        signal1, levels1 = quantization("../DSP_Tasks/Task3/Files/Quan1_input.txt", 8,
                                         "level")
-        signal2, levels2 = quantization("../Task3/Files/Quan2_input.txt", 4,
+        signal2, levels2 = quantization("../DSP_Tasks/Task3/Files/Quan2_input.txt", 4,
                                         "level")
 
-        QuantizationTest1("../Task3/Files/Quan1_Out.txt",
+        QuantizationTest1("../DSP_Tasks/Task3/Files/Quan1_Out.txt",
                           encoded_signal(signal1, levels1), quantized_signal(signal1, levels1))
 
-        QuantizationTest2("../Task3/Files/Quan2_Out.txt",
+        QuantizationTest2("../DSP_Tasks/Task3/Files/Quan2_Out.txt",
                           get_interval_idx(signal2, levels2),
                           encoded_signal(signal2, levels2), quantized_signal(signal2, levels2),
                           quantized_error(signal2, levels2))
@@ -138,7 +138,7 @@ class Compare:
         plot(signal2, quantized_signal(signal2, levels2), quantized_error(signal2, levels2))
 
 
-Compare()
+# Compare()
 
 
 
