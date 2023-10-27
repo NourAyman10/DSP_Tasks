@@ -78,17 +78,17 @@ def quantized_signal(signal, levels, indices):
     for i in indices:
         xq.append(midpoints[i - 1])
 
-    quantized_error(signal, xq, levels)
+    quantized_error(signal, xq)
 
 
-def quantized_error(signal, xq, levels):
+def quantized_error(signal, xq):
     quantization_error_values = xq - signal
     plot(signal, xq, quantization_error_values)
     return quantization_error_values
 
 
-def average_power_error(signal, levels, xq):
-    quantized_err = quantized_error(signal, xq, levels)
+def average_power_error(signal, xq):
+    quantized_err = quantized_error(signal, xq)
     error = [sample ** 2 for sample in quantized_err]
     average_power = sum(error) / len(error)
     messagebox.showerror("Average Power Error", f"Your Average Power Error is {average_power}.")
