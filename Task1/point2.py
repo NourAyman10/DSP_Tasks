@@ -38,7 +38,6 @@ class SecondPoint:
         self.image_label = tk.Label(self.main_frame2, image="", borderwidth=0, background=self.mainColor)
 
     def create_widgets(self):
-
         self.choose_type = Image.open("../Photos/Task1/chooseType.png")
         self.choose_type_image = ImageTk.PhotoImage(self.choose_type)
         self.choose_type_label = Label(self.root, image=self.choose_type_image, background=self.mainColor)
