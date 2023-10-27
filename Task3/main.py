@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import *
 from PIL import Image, ImageTk
-from Files import QuanTest2
+from Files.QuanTest2 import QuantizationTest2
+
 
 def get_levels(number,type):
     print("get levels")
@@ -21,7 +22,7 @@ def quantization():
     signal=load_file('DSP_Tasks/Task3/Files/Quan2_input.txt')
     levels=get_levels(3,'level')
     generate_range(signal,levels)
-
+    return signal,levels
 def binary_search(array,target):
     print("binary search")
     left=0
@@ -41,16 +42,19 @@ def generate_range(signal,levels):
     print("generate range")
     min_amp=np.min(signal)
     max_amp=np.max(signal)
-    delta=(max_amp-max_amp)/levels
-    return np.arange(min_amp,max_amp,delta)
+    delta=(max_amp-min_amp)/levels
+    ranges=np.arange(min_amp,max_amp,delta)
+    return ranges
 
 def get_interval_idx(signal,levels):
     print("get_interval_idx")
     ranges=generate_range(signal,levels)
     interval_indices=[]
     for i in signal:
-        interval_indices.append(binary_search(ranges,i)+1)
+        interval_indices.append(int(binary_search(ranges,i)+1))
     return interval_indices
+
+
 
 def calculate_midpoints(indices):
     print("calculate_midpoints")
@@ -63,18 +67,19 @@ def calculate_midpoints(indices):
     return midpoints    
 
 
-def quantized_siganl(signal,levels):
+def quantized_signal(signal,levels):
     print("quantized_signal")
     indices=get_interval_idx(signal,levels)
     midpoints=calculate_midpoints(indices)
     xq=[]
     for i in indices:
-        xq.append(midpoints[indices-1])
+        xq.append(midpoints[i-1])
     return xq
+
 
 def quantizated_error(signal,levels):
     print("quantized_error")
-    xq=quantized_siganl(signal,levels)
+    xq=quantized_signal(signal,levels)
     return xq-signal
 
 def Average_power_error(signal,levels):
@@ -84,30 +89,44 @@ def Average_power_error(signal,levels):
     average_power = sum(error) / len(error)
     return average_power
 
-def encoded_signal(signal,levels):
-    print("encode_signal")
-    return bin(get_interval_idx(signal,levels))
+# def encoded_signal(signal,levels):
+#     print("encode_signal")
+#     return bin(get_interval_idx(signal,levels))
 
-        
-
+def encoded_signal(signal, levels):
+    interval_indices = get_interval_idx(signal, levels)
+    return bin(int("".join(map(str, interval_indices)), 2))
 
 
 
 
 class Task2:
     def __init__(self):
-        # self.mainColor = '#1C113A'
-        # self.subColor = '#141445'
+        signal, levels = quantization()
+        QuantizationTest2("DSP_Tasks/Task3/Files/Quan2_Out.txt", get_interval_idx(signal, levels), encoded_signal(signal, levels), quantized_signal(signal, levels), quantizated_error(signal, levels))
 
-        # root = tk.Tk()
-        # root.geometry("1300x563")
+Task2()
+        
 
-        # main_frame = Frame(root)
-        # # setting background image
-        # image = Image.open("../DSP_Tasks/Photos/sub_background.png")
-        # background_image = ImageTk.PhotoImage(image)
-        # background_label = Label(main_frame, image=background_image)
-       signal=load_file('DSP_Tasks/Task3/Files/Quan2_input.txt')
-       levels=get_levels(3,'level')
-       generate_range(signal,levels)
-       QuanTest2("DSP_Tasks/Task3/Files/Quan2_Out.txt",get_interval_idx(signal,levels),encoded_signal(signal,levels),quantized_siganl(signal,levels),quantizated_error(signal,levels))
+
+
+
+
+# class Task2:
+#     def __init__(self):
+#         # self.mainColor = '#1C113A'
+#         # self.subColor = '#141445'
+
+#         # root = tk.Tk()
+#         # root.geometry("1300x563")
+
+#         # main_frame = Frame(root)
+#         # # setting background image
+#         # image = Image.open("../DSP_Tasks/Photos/sub_background.png")
+#         # background_image = ImageTk.PhotoImage(image)
+#         # background_label = Label(main_frame, image=background_image)
+#        signal=load_file('DSP_Tasks/Task3/Files/Quan2_input.txt')
+#        levels=get_levels(3,'level')
+#        generate_range(signal,levels)
+#        QuantizationTest2("DSP_Tasks/Task3/Files/Quan2_Out.txt",get_interval_idx(signal,levels),encoded_signal(signal,levels),quantized_signal(signal,levels),quantizated_error(signal,levels))
+# Task2()
