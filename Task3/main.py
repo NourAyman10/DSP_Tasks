@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
 from tkinter import messagebox
+from Task3.files_comparison import Compare
 
 from Task3.Files.QuanTest2 import QuantizationTest2
 from Task3.Files.QuanTest1 import QuantizationTest1
@@ -125,21 +126,6 @@ def plot(signal, quantized_signal_values, quantization_error_values):
     plt.show()
 
 
-def compare_output():
-    signal1 = load_file("Task3/Files/Quan1_input.txt")
-    levels1 = get_levels(8, "level")
-
-    signal2 = load_file("Task3/Files/Quan2_input.txt")
-    levels2 = get_levels(4, "level")
-
-    QuantizationTest1("Task3/Files/Quan1_Out.txt",
-                      encoded_signal(signal1, levels1), quantized_signal(signal1, levels1))
-
-    # QuantizationTest2("Task3/Files/Quan2_Out.txt",
-    #                   get_interval_idx(signal2, levels2),
-    #                   encoded_signal(signal2, levels2), quantized_signal(signal2, levels2),
-    #                   quantized_error(signal2, levels2))
-
 
 class Task3:
     def __init__(self):
@@ -209,7 +195,7 @@ class Task3:
                                                                   self.type_value.get()))
         self.compare_button_image = PhotoImage(file="../DSP_Tasks/Photos/Task3/compareBtn.png")
         self.compareButton = Button(self.root, image=self.compare_button_image, borderwidth=0, cursor="hand2", bd=0,
-                                    background='#141345', activebackground='#141345', command=compare_output)
+                                    background='#141345', activebackground='#141345', command=Compare)
 
     def placing_widgets(self):
         self.background2_label.place(x=0, y=0)
