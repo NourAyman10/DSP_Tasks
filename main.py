@@ -3,6 +3,8 @@ from tkinter import *
 import tkinter as tk
 from PIL import Image, ImageTk
 from Task2.main import Task2
+from Task3.main import Task3
+
 
 
 def open_task(root, page):
@@ -38,12 +40,17 @@ class MainScreen:
         task2_button = Button(root, image=task2_button_image, borderwidth=0, cursor="hand2", bd=0,
                               background='#141345', activebackground='#141345', command=lambda: open_task(root, Task2))
 
+        task3_button_image = PhotoImage(file="Photos/task3Btn.png")
+        task3_button = Button(root, image=task3_button_image, borderwidth=0, cursor="hand2", bd=0,
+                              background='#141345', activebackground='#141345', command=lambda: open_task(root, Task3))
+
         # Placing widgets on the screen
         background_label.place(x=0, y=0)
         main_frame.place(anchor='center', relx=0.5, rely=0.45)
         choose_point_label.place(anchor='center', relx=0.5, y=250)
         task1_button.place(anchor='center', relx=0.3, y=390)
-        task2_button.place(anchor='center', relx=0.7, y=390)
+        task2_button.place(anchor='center', relx=0.5, y=390)
+        task3_button.place(anchor='center', relx=0.7, y=390)
         image_label.pack()
 
         root.mainloop()
