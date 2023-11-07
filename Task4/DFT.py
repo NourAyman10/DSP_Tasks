@@ -63,74 +63,75 @@ def plot(X,Frequency_samples):
     plt.tight_layout()
     plt.show()
 
-    data = {'Amplitude': amplitude.tolist(), 'Phase': phase_shift.tolist()}
-    with open('frequency_components.txt', 'w') as file:
-        json.dump(data, file, indent=4)
+def modify_amplitude_and_phase(X, new_amplitude, new_phase_shift):
+    amplitude = np.abs(X) * new_amplitude
+    phase = np.angle(X) * new_phase_shift
+    return amplitude, phase
 
-
+#________________________________CODE_________________________________________#
 
 signal=load_file("Task4/input_Signal_DFT.txt")
 Frequency_samples=float(input("Enter the Sampling frequency in Hz : "))
 X=DFT(signal)
+amplitude, phase_shift, frequencies = Calculate_Amplitude_and_phaseShift(X, Frequency_samples)
 plot(X,Frequency_samples)
 
+New_amplitude = 1.5  #هنا يا نور هندخلها من ال جي يو اي
+New_Phase_Shift = 0.8 #نفس اللي فوق
 
+amplitude_modified, phase_modified = modify_amplitude_and_phase(X, New_amplitude, New_Phase_Shift)
 
-
-# with open('frequency_components.txt', 'r') as file:
-#     data = json.load(file)
-
-
-# amplitude_data = data['Amplitude']
-# phase_shift_data = data['Phase']
-
-
-# amplitude_file_data = {'Amplitude': amplitude_data}
-# with open('amplitude_data.txt', 'w') as amplitude_file:
-#     json.dump(amplitude_file_data, amplitude_file, indent=4)
-
-
-# phase_shift_file_data = {'Phase': phase_shift_data}
-# with open('phase_shift_data.txt', 'w') as phase_shift_file:
-#     json.dump(phase_shift_file_data, phase_shift_file, indent=4)
-
-
-
-# # Read the JSON file
-# with open('amplitude_data.txt', 'r') as file:
-#     data = json.load(file)
-# amplitude_values = data['Amplitude']
-
-# with open('amplitude_values_rounded.txt', 'w') as output_file:
-#     for value in amplitude_values:
-#         rounded_amplitude= round(value, 13)  # Rounding to 13 decimal places
-#         output_file.write(str(rounded_amplitude) + '\n')
-
-
-# with open('phase_shift_data.txt', 'r') as file:
-#     data = json.load(file)
-# phase_values = data['Phase']
-# with open('phase_values.txt', 'w') as output_file:
-#     for value in phase_values:
-#         rounded_phase=round(value,14)
-#         output_file.write(str(rounded_phase) + '\n')
+print(amplitude_modified,phase_modified)
 
 
 
 
 
 
+#____________________________SAVE FILE_____________________________________#
+amplitude_rounded = [round(a, 13) for a in amplitude]
+phase_shift_rounded = [round(p, 14) for p in phase_shift]
+with open('frequency_components_rounded.txt', 'w') as file:
+    for amp, phase, freq in zip(amplitude_rounded, phase_shift_rounded, frequencies):
+        amp_str = f"{int(amp) if amp.is_integer() else amp}{'f' if not amp.is_integer() else ''}"
+        phase_str = f"{int(phase) if phase.is_integer() else phase}{'f' if not phase.is_integer() else ''}"
+        file.write(f"{amp_str} {phase_str}\n")
 
 
 
 
+file1_amplitudes = []
+file1_phases = []
+with open('Task4/Output_Signal_DFT_A,Phase.txt', 'r') as file:
+    lines = file.readlines()[3:]
+    for line in lines:
+        data = line.strip().split()
+        if len(data) >= 2:
+            amplitude, phase = data
+            amplitude = round(float(amplitude[:-1]) if amplitude.endswith('f') else float(amplitude), 14)
+            phase = float(phase[:-1]) if phase.endswith('f') else float(phase)
+            file1_amplitudes.append(amplitude)
+            file1_phases.append(phase)
 
 
+file2_amplitudes = []
+file2_phases = []
+with open('frequency_components_rounded.txt', 'r') as file:
+    for line in file:
+        data = line.strip().split()
+        if len(data) >= 2:
+            amplitude, phase = data
+            amplitude = round(float(amplitude[:-1]) if amplitude.endswith('f') else float(amplitude), 14)
+            phase = float(phase[:-1]) if phase.endswith('f') else float(phase)
+            file2_amplitudes.append(amplitude)
+            file2_phases.append(phase)
 
-# amplitude_test = SignalComapreAmplitude(amplitudes, rounded_amplitude)
-# phase_test = SignalComaprePhaseShift(phases, rounded_phase)  
 
-# if amplitude_test and phase_test:
-#     print("The output matches the reference signals.")
-# else:
-#     print("The output does not match the reference signals.")
+amplitude_comparison = SignalComapreAmplitude(file1_amplitudes, file2_amplitudes)
+phase_comparison = SignalComaprePhaseShift(file1_phases, file2_phases)
+
+if amplitude_comparison and phase_comparison:
+    print("Amplitude and Phase values match in the two files.")
+else:
+    print("Amplitude and/or Phase values don't match in the two files.")
+
