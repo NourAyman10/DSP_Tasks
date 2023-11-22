@@ -1,3 +1,4 @@
+from tkinter import messagebox
 
 def SignalSamplesAreEqual(file_name,samples):
     """
@@ -26,13 +27,14 @@ def SignalSamplesAreEqual(file_name,samples):
             else:
                 break
                 
-    if len(expected_samples)!=len(samples):
+    if len(expected_samples) != len(samples):
         print("Test case failed, your signal have different length from the expected one")
-        return
+        return 0
     for i in range(len(expected_samples)):
         if abs(samples[i] - expected_samples[i]) < 0.01:
             continue
         else:
             print("Test case failed, your signal have different values from the expected one") 
-            return
+            return 0
     print("Test case passed successfully")
+    return 1

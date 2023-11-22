@@ -138,7 +138,6 @@ class Compare:
         plot(signal2, quantized_signal(signal2, levels2), quantized_error(signal2, levels2))
 
 
-# Compare()
 
 
 

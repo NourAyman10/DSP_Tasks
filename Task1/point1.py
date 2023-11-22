@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 class FirstPoint:
     def __init__(self):
-        self.file_path = "Files/signal1.txt"
+        self.file_path = "Task1/Files/signal1.txt"
 
         with open(self.file_path, "r") as file:
             for _ in range(3):

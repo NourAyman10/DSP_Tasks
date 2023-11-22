@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 import numpy as np
 import matplotlib.pyplot as plt
 
-from comparesignals import SignalSamplesAreEqual
+from Task1.comparesignals import SignalSamplesAreEqual
 from tkinter import messagebox
 
 
@@ -31,28 +31,28 @@ class SecondPoint:
         self.root.mainloop()
 
     def setting_background(self):
-        self.image = Image.open("../Photos/sub_background.png")
+        self.image = Image.open("../DSP_Tasks/Photos/sub_background.png")
         self.background2_image = ImageTk.PhotoImage(self.image)
         self.background2_label = Label(self.root, image=self.background2_image)
         self.main_frame2 = tk.Frame(self.root, borderwidth=0, background=self.mainColor)
         self.image_label = tk.Label(self.main_frame2, image="", borderwidth=0, background=self.mainColor)
 
     def create_widgets(self):
-        self.choose_type = Image.open("../Photos/Task1/chooseType.png")
+        self.choose_type = Image.open("../DSP_Tasks/Photos/Task1/chooseType.png")
         self.choose_type_image = ImageTk.PhotoImage(self.choose_type)
         self.choose_type_label = Label(self.root, image=self.choose_type_image, background=self.mainColor)
         # Type(sin, cos) Radio Button
         self.type_value = StringVar(value="none")
-        self.SinImage = PhotoImage(file="../Photos/Task1/Point2/sinusoidal.png")
+        self.SinImage = PhotoImage(file="../DSP_Tasks/Photos/Task1/Point2/sinusoidal.png")
         self.SinRadioButton = Radiobutton(self.root, variable=self.type_value,
                                           value="sin", background=self.mainColor, image=self.SinImage,
                                           activebackground=self.mainColor)
-        self.CosImage = PhotoImage(file="../Photos/Task1/Point2/cosinusoidal.png")
+        self.CosImage = PhotoImage(file="../DSP_Tasks/Photos/Task1/Point2/cosinusoidal.png")
         self.CosRadioButton = Radiobutton(self.root, variable=self.type_value,
                                           value="cos", background=self.mainColor, image=self.CosImage,
                                           activebackground=self.mainColor)
         # Textbox inputs labels
-        self.inputs_labels = Image.open("../Photos/Task1/Point2/inputs.png")
+        self.inputs_labels = Image.open("../DSP_Tasks/Photos/Task1/Point2/inputs.png")
         self.inputs_labels_image = ImageTk.PhotoImage(self.inputs_labels)
         self.inputs_labels_label = Label(self.root, image=self.inputs_labels_image, background='#18103A')
         self.amplitude_value = StringVar(value="")
@@ -73,10 +73,10 @@ class SecondPoint:
         self.phaseShiftEntry = Entry(self.root, width=18, font=("arial", 15), bd=0, textvariable=self.phaseShift_value,
                                      background=self.secondColor,
                                      foreground=self.foregroundColor, insertbackground="#9601AB")
-        self.generate_button_image = PhotoImage(file="../Photos/Task1/Point2/generateBtn.png")
+        self.generate_button_image = PhotoImage(file="../DSP_Tasks/Photos/Task1/Point2/generateBtn.png")
         self.generateButton = Button(self.root, image=self.generate_button_image, borderwidth=0, cursor="hand2", bd=0,
                                      background='#141345', activebackground='#141345', command=self.generate_wave)
-        self.compare_button_image = PhotoImage(file="../Photos/Task1/Point2/compareBtn.png")
+        self.compare_button_image = PhotoImage(file="../DSP_Tasks/Photos/Task1/Point2/compareBtn.png")
         self.compareButton = Button(self.root, image=self.compare_button_image, borderwidth=0, cursor="hand2", bd=0,
                                     background='#141345', activebackground='#141345', command=self.compare_values)
 
