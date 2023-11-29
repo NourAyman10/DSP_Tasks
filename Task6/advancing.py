@@ -30,20 +30,17 @@ class Advancing:
                                        background=self.mainColor, foreground=self.foregroundColor,
                                        insertbackground="#9601AB")
 
-        smooth_btn = tk.Button(self.root, text="Advancing", borderwidth=0,
-                               cursor="hand2", bd=0, background=self.foregroundColor, font=("arial", 18),
-                               activebackground=self.foregroundColor, foreground="white",
-                               command=lambda: self.advancing_signal(self.signal))
+        advance_btn = tk.Button(self.root, text="Advancing", borderwidth=0,
+                                cursor="hand2", bd=0, background=self.foregroundColor, font=("arial", 18),
+                                activebackground=self.foregroundColor, foreground="white", width=20,
+                                command=lambda: self.advancing_signal(self.signal))
 
         number_of_points_label.pack()
         number_of_points_entry.pack()
-        smooth_btn.pack()
+        advance_btn.pack(pady=20)
         self.root.mainloop()
 
     def advancing_signal(self, signal):
         number_of_steps = int(self.number_of_points_value.get())
         advance = advance_signal(signal, number_of_steps)
         plot_signals("Original Signal VS Advance Signal", Original_Signal=signal, Advance_Signal=advance)
-
-
-

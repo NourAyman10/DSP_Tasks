@@ -30,14 +30,14 @@ class Delaying:
                                        background=self.mainColor, foreground=self.foregroundColor,
                                        insertbackground="#9601AB")
 
-        smooth_btn = tk.Button(self.root, text="Delay", borderwidth=0,
+        delay_btn = tk.Button(self.root, text="Delay", borderwidth=0,
                                cursor="hand2", bd=0, background=self.foregroundColor, font=("arial", 18),
-                               activebackground=self.foregroundColor, foreground="white",
+                               activebackground=self.foregroundColor, foreground="white", width=20,
                                command=lambda: self.delaying_signal(self.signal))
 
         number_of_points_label.pack()
         number_of_points_entry.pack()
-        smooth_btn.pack()
+        delay_btn.pack(pady=20)
         self.root.mainloop()
 
     def delaying_signal(self, signal):

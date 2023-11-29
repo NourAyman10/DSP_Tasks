@@ -12,12 +12,14 @@ from Task6.helper_functions import advance_signal
 from Task6.smoothing import Smoothing
 from Task6.advancing import Advancing
 from Task6.delaying import Delaying
+from Task6.folding import Folding
 
 
 def fold_signal(file_path):
     signal = load_file(file_path.get())
-    folded_signal = signal[::-1]
-    plot_signals("Original Signal VS Folded Signal", Original_Signal=signal, Folded_Signal=folded_signal)
+    Folding(signal)
+    # folded_signal = signal[::-1]
+    # plot_signals("Original Signal VS Folded Signal", Original_Signal=signal, Folded_Signal=folded_signal)
 
 
 def remove_DC_frequency(file_path):

@@ -31,12 +31,12 @@ class Smoothing:
 
         smooth_btn = tk.Button(self.root, text="Smooth", borderwidth=0,
                                cursor="hand2", bd=0, background=self.foregroundColor, font=("arial", 18),
-                               activebackground=self.foregroundColor, foreground="white",
+                               activebackground=self.foregroundColor, foreground="white", width=20,
                                command=lambda: self.smooth_signal(self.signal))
 
         number_of_points_label.pack()
         number_of_points_entry.pack()
-        smooth_btn.pack()
+        smooth_btn.pack(pady=20)
         self.root.mainloop()
 
     def smooth_signal(self, signal):
