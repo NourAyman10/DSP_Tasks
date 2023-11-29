@@ -61,6 +61,23 @@ def delaying_signal(file_path):
     Delaying(signal)
 
 
+def sharpening_signal(file_path):
+    InputSignal = load_file(file_path.get())
+
+    FirstDrev = [int(InputSignal[i] - InputSignal[i - 1] if i > 0 else 1) for i in range(len(InputSignal))]
+
+    SecondDrev = [
+        int(InputSignal[i + 1] - 2 * InputSignal[i] + InputSignal[i - 1] if i > 1 and i < len(InputSignal) - 1 else 0)
+        for i in range(len(InputSignal))]
+    # Y(n)= x(n+1)-2x(n)+x(n-1)
+
+    FirstDrev = FirstDrev[:-1]
+    SecondDrev = SecondDrev[:-2]
+
+    plot_signals("Original Signal VS First Derivative VS Second Derivative", Original_Signal=InputSignal,
+                 First_Derivative=FirstDrev, Second_Derivative=SecondDrev)
+
+
 class Task6:
     def __init__(self):
         self.mainColor = '#270D30'
@@ -105,7 +122,8 @@ class Task6:
 
         self.sharpening_signal_button_image = PhotoImage(file="../DSP_Tasks/Photos/Task6/sharpen_signal.png")
         self.sharpening_signal_button = Button(self.root, image=self.sharpening_signal_button_image, borderwidth=0,
-                                               cursor="hand2", bd=0, background='#141345', activebackground='#141345')
+                                               cursor="hand2", bd=0, background='#141345', activebackground='#141345',
+                                               command=lambda: sharpening_signal(self.choose_file))
 
         self.advancing_signal_button_image = PhotoImage(file="../DSP_Tasks/Photos/Task6/advancing_signal.png")
         self.advancing_signal_button = Button(self.root, image=self.advancing_signal_button_image, borderwidth=0,
