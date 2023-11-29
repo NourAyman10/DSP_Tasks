@@ -1,9 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def delay_signal(signal, k):
     delayed_signal = np.pad(signal, (k, 0), 'constant')[:-k]
     return delayed_signal
+
 
 def advance_signal(signal, k):
     advanced_signal = np.pad(signal, (0, k), 'constant')[k:]
@@ -24,12 +26,11 @@ def load_file(file_path):
     return values
 
 
-signal=load_file('Task6/Files/Input Shifting.txt')
-k=int(input("Enter k steps :"))
-delay=delay_signal(signal,k)
-k2=int(input("Enter k steps :"))
-advance=advance_signal(signal,k2)
-
+signal = load_file('../Task6/Files/Input Shifting.txt')
+k = int(input("Enter k steps :"))
+delay = delay_signal(signal, k)
+k2 = int(input("Enter k steps :"))
+advance = advance_signal(signal, k2)
 
 plt.figure(figsize=(10, 5))
 

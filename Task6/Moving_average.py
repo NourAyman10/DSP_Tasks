@@ -40,17 +40,17 @@ def load_file(file_path):
 
     return values
 
-signal1 =load_file('Task6/Files/Signal1.txt')
+signal1 =load_file('../Task6/Files/Signal1.txt')
 size=int(input("Enter window size : "))
 smoothed=moving_average(signal1,size)
 plot_signals(signal1,smoothed,"smoothing")
-SignalSamplesAreEqual('Task6/Files/OutMovAvgTest1.txt',smoothed)
+SignalSamplesAreEqual('../Task6/Files/OutMovAvgTest1.txt',smoothed)
 
-signal2=load_file('Task6/Files/Signal2.txt')
+signal2=load_file('../Task6/Files/Signal2.txt')
 size2=int(input("Enter window size : "))
 smoothed2=moving_average(signal2,size2)
 plot_signals(signal2,smoothed2,"smoothed")
-SignalSamplesAreEqual('Task6/Files/OutMovAvgTest2.txt',smoothed2)
+SignalSamplesAreEqual('../Task6/Files/OutMovAvgTest2.txt',smoothed2)
 
 
 
