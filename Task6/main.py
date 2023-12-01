@@ -18,8 +18,6 @@ from Task6.folding import Folding
 def fold_signal(file_path):
     signal = load_file(file_path.get())
     Folding(signal)
-    # folded_signal = signal[::-1]
-    # plot_signals("Original Signal VS Folded Signal", Original_Signal=signal, Folded_Signal=folded_signal)
 
 
 def remove_DC_frequency(file_path):

@@ -14,15 +14,15 @@ def ConvTest(Your_indices,Your_samples):
     
     if (len(expected_samples)!=len(Your_samples)) and (len(expected_indices)!=len(Your_indices)):
         print("Conv Test case failed, your signal have different length from the expected one")
-        return
+        return "Conv Test case failed, your signal have different length from the expected one"
     for i in range(len(Your_indices)):
         if(Your_indices[i]!=expected_indices[i]):
             print("Conv Test case failed, your signal have different indicies from the expected one") 
-            return
+            return "Conv Test case failed, your signal have different indicies from the expected one"
     for i in range(len(expected_samples)):
         if abs(Your_samples[i] - expected_samples[i]) < 0.01:
             continue
         else:
             print("Conv Test case failed, your signal have different values from the expected one") 
-            return
-    print("Conv Test case passed successfully")
+            return "Conv Test case failed, your signal have different values from the expected one"
+    return "Conv Test case passed successfully"

@@ -1,9 +1,11 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-from Files.ConvTest import ConvTest
+from Task7.Files.ConvTest import ConvTest
+from tkinter import messagebox
 
-def plot_signals_convolution(indices_signal1, values_signal1, indices_signal2, values_signal2, conv_indices, conv_values):
+
+def plot_signals_convolution(indices_signal1, values_signal1, indices_signal2, values_signal2,
+                             conv_indices, conv_values):
     plt.figure(figsize=(10, 5))
 
     plt.subplot(3, 1, 1)
@@ -35,7 +37,7 @@ def load_file(file_path):
     with open(file_path, "r") as file:
         for _ in range(3):
             next(file)
-        
+
         for line in file:
             n, value = line.split()
             indices.append(int(n))
@@ -43,40 +45,35 @@ def load_file(file_path):
 
     return np.array(indices), np.array(values)
 
-def convolution(x, h):
-    lenx = len(x)
-    lenh = len(h)
-    leny = lenx + lenh - 1
+
+def generate_indices(h_indices, x_indices):
+    min_index = min(x_indices) + min(h_indices)
+    max_index = max(x_indices) + max(h_indices)
+    indices = list(range(min_index, max_index + 1))
+    return indices
+
+
+def calculate_convolution(x_values, x_indices, h_values, h_indices):
+    len_x = len(x_values)
+    len_h = len(h_values)
+    leny = len_x + len_h - 1
     y = [0] * leny
-    indices = [0] * leny
+    indices = generate_indices(h_indices, x_indices)
 
     for n in range(leny):
-        min_index_x = max(0, n - (lenh - 1))
-        max_index_x = min(lenx - 1, n)
-        min_index_h = max(0, (lenh - 1) - n)
-        max_index_h = min(lenh - 1, n)
-
-        if min_index_x + min_index_h <= n <= max_index_x + max_index_h:
-            indices[n] = n - (lenh - 1)
-
-        for k in range(min_index_x, lenx):
-            if n - k >= 0 and n - k < lenh:
-                y[n] += x[k] * h[n - k]
+        min_index_x = max(0, n - (len_h - 1))
+        for k in range(min_index_x, len_x):
+            if 0 <= n - k < len_h:
+                y[n] += x_values[k] * h_values[n - k]
 
     return indices, y
 
-file_path_signal1 = "Task7/Files/Input_conv_Sig1.txt"
-file_path_signal2 = "Task7/Files/Input_conv_Sig2.txt"
 
-indices_signal1, values_signal1 = load_file(file_path_signal1)
-indices_signal2, values_signal2 = load_file(file_path_signal2)
+def convolution(file1_path, file2_path):
+    indices_signal1, values_signal1 = load_file(file1_path.get())
+    indices_signal2, values_signal2 = load_file(file2_path.get())
 
+    y_indices, y_values = calculate_convolution(values_signal1, indices_signal1, values_signal2, indices_signal2)
+    plot_signals_convolution(indices_signal1, values_signal1, indices_signal2, values_signal2, y_indices, y_values)
 
-indices,y=convolution(values_signal1,values_signal2) 
-
-print(indices)
-print(y)
-
-plot_signals_convolution(indices_signal1,values_signal1,indices_signal2,values_signal2,indices,y)
-
-ConvTest(indices,y)
+    messagebox.showinfo("Compare Signals", ConvTest(y_indices, y_values))
