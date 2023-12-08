@@ -1,8 +1,10 @@
 import math
 
 
-def calculate_correlation(signal1, signal2, float_point, N):
+def calculate_correlation(signal1, signal2, float_point):
+    N = len(signal1)
     result = []
+
     x1_square = [i ** 2 for i in signal1]
     x2_square = [i ** 2 for i in signal2]
     p12_denominator = math.sqrt((sum(x1_square) * sum(x2_square))) / N
@@ -25,6 +27,5 @@ signal1 = [2, 1, 0, 0, 3]
 signal2 = [3, 2, 1, 1, 5]
 
 float_point = 2
-N = len(signal1)
 
-print(calculate_correlation(signal1, signal2, float_point, N))
+print(calculate_correlation(signal1, signal2, float_point))
