@@ -1,5 +1,21 @@
 import math
+import numpy as np
 import matplotlib.pyplot as plt
+
+from Files.CompareSignal import Compare_Signals
+def load_file(file_path):
+    with open(file_path, "r") as file:
+        
+        for _ in range(3):
+            next(file)
+
+        values = []
+        for line in file:
+            _, value = line.split()
+            values.append(float(value))
+        
+
+    return values
 
 
 def plot_signals_correlation(signal1, signal2, result):
@@ -26,7 +42,6 @@ def plot_signals_correlation(signal1, signal2, result):
     plt.tight_layout()
     plt.show()
 
-
 def calculate_correlation(signal1, signal2, float_point):
     N = len(signal1)
     result = []
@@ -46,15 +61,17 @@ def calculate_correlation(signal1, signal2, float_point):
 
     # r0 == r_end
     result = [result[N - 1]] + result
-    return result[:N]
+    indices=list(range(N))
+    return indices,result[:N]
 
 
-signal1 = [2, 1, 0, 0, 3]
-signal2 = [3, 2, 1, 1, 5]
+signal1=load_file('Files/Corr_input signal1.txt')
+signal2=load_file('Files/Corr_input signal2.txt')
 
-float_point = 2
+float_point = 8
 
-result = calculate_correlation(signal1, signal2, float_point)
+indices,result = calculate_correlation(signal1, signal2, float_point)
 print(result)
 
 plot_signals_correlation(signal1, signal2, result)
+Compare_Signals('Files/CorrOutput.txt',indices,result)
