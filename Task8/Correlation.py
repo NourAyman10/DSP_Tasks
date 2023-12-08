@@ -1,5 +1,30 @@
 import math
+import matplotlib.pyplot as plt
 
+
+def plot_signals_convolution(signal1, signal2, result):
+    plt.figure(figsize=(10, 5))
+
+    plt.subplot(3, 1, 1)
+    plt.plot(signal1)
+    plt.title('Signal 1')
+    plt.xlabel('Indices')
+    plt.ylabel('Values')
+
+    plt.subplot(3, 1, 2)
+    plt.plot(signal2)
+    plt.title('Signal 2')
+    plt.xlabel('Indices')
+    plt.ylabel('Values')
+
+    plt.subplot(3, 1, 3)
+    plt.plot(result)
+    plt.title('Correlation Result')
+    plt.xlabel('Indices')
+    plt.ylabel('Values')
+
+    plt.tight_layout()
+    plt.show()
 
 def calculate_correlation(signal1, signal2, float_point):
     N = len(signal1)
@@ -28,4 +53,7 @@ signal2 = [3, 2, 1, 1, 5]
 
 float_point = 2
 
-print(calculate_correlation(signal1, signal2, float_point))
+result = calculate_correlation(signal1, signal2, float_point)
+print(result)
+
+plot_signals_convolution(signal1, signal2, result)
