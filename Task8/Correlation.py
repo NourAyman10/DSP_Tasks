@@ -26,6 +26,7 @@ def plot_signals_correlation(signal1, signal2, result):
     plt.tight_layout()
     plt.show()
 
+
 def calculate_correlation(signal1, signal2, float_point):
     N = len(signal1)
     result = []
@@ -45,7 +46,7 @@ def calculate_correlation(signal1, signal2, float_point):
 
     # r0 == r_end
     result = [result[N - 1]] + result
-    return result
+    return result[:N]
 
 
 signal1 = [2, 1, 0, 0, 3]
