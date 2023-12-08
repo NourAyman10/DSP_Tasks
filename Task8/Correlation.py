@@ -2,7 +2,7 @@ import math
 import matplotlib.pyplot as plt
 
 
-def plot_signals_convolution(signal1, signal2, result):
+def plot_signals_correlation(signal1, signal2, result):
     plt.figure(figsize=(10, 5))
 
     plt.subplot(3, 1, 1)
@@ -56,4 +56,4 @@ float_point = 2
 result = calculate_correlation(signal1, signal2, float_point)
 print(result)
 
-plot_signals_convolution(signal1, signal2, result)
+plot_signals_correlation(signal1, signal2, result)
