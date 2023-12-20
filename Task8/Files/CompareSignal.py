@@ -1,4 +1,6 @@
-def Compare_Signals(file_name,Your_indices,Your_samples):      
+from tkinter import messagebox
+
+def Compare_Signals(file_name,Your_indices,Your_samples):
     expected_indices=[]
     expected_samples=[]
     with open(file_name, 'r') as f:
@@ -35,3 +37,5 @@ def Compare_Signals(file_name,Your_indices,Your_samples):
             print("Correlation Test case failed, your signal have different values from the expected one") 
             return
     print("Correlation Test case passed successfully")
+    messagebox.showinfo("Correlation", "Correlation Test case passed successfully")
+

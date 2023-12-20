@@ -2,10 +2,12 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-from Files.CompareSignal import Compare_Signals
+from Task8.Files.CompareSignal import Compare_Signals
+
+
 def load_file(file_path):
     with open(file_path, "r") as file:
-        
+
         for _ in range(3):
             next(file)
 
@@ -13,7 +15,6 @@ def load_file(file_path):
         for line in file:
             _, value = line.split()
             values.append(float(value))
-        
 
     return values
 
@@ -42,7 +43,12 @@ def plot_signals_correlation(signal1, signal2, result):
     plt.tight_layout()
     plt.show()
 
-def calculate_correlation(signal1, signal2, float_point):
+
+def calculate_correlation(signal1_path, signal2_path):
+    signal1 = load_file(signal1_path)
+    signal2 = load_file(signal2_path)
+
+    float_point = 8
     N = len(signal1)
     result = []
 
@@ -61,17 +67,22 @@ def calculate_correlation(signal1, signal2, float_point):
 
     # r0 == r_end
     result = [result[N - 1]] + result
-    indices=list(range(N))
-    return indices,result[:N]
+    result = result[:N]
+    indices = list(range(N))
+
+    Compare_Signals('Task8/Files/CorrOutput.txt', indices, result)
+    plot_signals_correlation(signal1, signal2, result)
+
+    # return indices, result
 
 
-signal1=load_file('Files/Corr_input signal1.txt')
-signal2=load_file('Files/Corr_input signal2.txt')
+# signal1 = 'Task8/Files/Corr_input signal1.txt'
+# signal2 = 'Task8/Files/Corr_input signal2.txt'
 
-float_point = 8
-
-indices,result = calculate_correlation(signal1, signal2, float_point)
-print(result)
-
-plot_signals_correlation(signal1, signal2, result)
-Compare_Signals('Files/CorrOutput.txt',indices,result)
+# float_point = 8
+#
+# indices, result = calculate_correlation(signal1, signal2)
+# print(result)
+#
+# plot_signals_correlation(signal1, signal2, result)
+# Compare_Signals('Files/CorrOutput.txt', indices, result)
